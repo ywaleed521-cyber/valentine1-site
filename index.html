@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a001a, black);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+
+/* شاشة الباسورد */
+#loginBox{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+input{
+  padding:12px;
+  font-size:18px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+
+button{
+  padding:10px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#ff1e4d;
+  transform:scale(1.05);
+}
+
+/* المحتوى */
+#content{
+  display:none;
+  padding:20px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* الكتابة */
+#typedText{
+  font-size:22px;
+  line-height:2;
+  color:#ff85a2;
+  font-weight:bold;
+  white-space:pre-line;
+  margin-top:20px;
+}
+
+/* الصور */
+img{
+  width:90%;
+  max-width:400px;
+  border-radius:20px;
+  margin-top:20px;
+  box-shadow:0 0 30px #ff4d6d;
+  transition:0.5s;
+}
+img:hover{
+  transform:scale(1.05);
+}
+
+/* الفيديو */
+video{
+  width:90%;
+  max-width:500px;
+  margin-top:20px;
+  border-radius:20px;
+  box-shadow:0 0 30px #ff4d6d;
+}
+
+/* القلوب */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:20px;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0) scale(1);}
+  100%{transform:translateY(-100vh) scale(1.5); opacity:0;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="loginBox">
+  <h2>اكتب الباسورد ❤️</h2>
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="checkPassword()">دخول</button>
+</div>
+
+<div id="content">
+  <h1>Happy Valentine 💕</h1>
+
+  <div id="typedText"></div>
+
+  <!-- الصور -->
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
+
+  <!-- فيديو (اختياري) -->
+  <!-- لو مش عندك فيديو امسحي الجزء ده -->
+  <video controls>
+    <source src="love.mp4" type="video/mp4">
+  </video>
+
+  <!-- الأغنية -->
+  <audio id="music" loop controls>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<script>
+const message = `ينور عيني 💕
+يا أجمل حاجة حصلتلي في الدنيا دي ❤️
+من أول يوم شوفتك فيه وأنا حبيتك من كل قلبي 💫
+كل عيد حب وإحنا دايمًا سوا…
+إنتي كل حاجة حلوة في حياتي ✨💖`;
+
+let i = 0;
+function typeWriter(){
+  if(i < message.length){
+    document.getElementById("typedText").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
+
+function checkPassword(){
+  var pass = document.getElementById("password").value;
+  if(pass === "Love392006"){
+    document.getElementById("loginBox").style.display="none";
+    document.getElementById("content").style.display="block";
+
+    const music = document.getElementById("music");
+    music.volume = 0.5;
+    music.play().catch(()=>{});
+
+    typeWriter();
+    createHearts();
+  }else{
+    alert("الباسورد غلط ❤️");
+  }
+}
+
+function createHearts(){
+  const colors = ["#ff4d6d", "#ff85a2", "#ff99c8", "#ffc2d1"];
+
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
