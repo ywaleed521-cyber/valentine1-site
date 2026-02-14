@@ -80,12 +80,23 @@ img:hover{
 }
 
 /* الفيديو */
+.video-container{
+  margin-top:30px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.video-container.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
 video{
   width:90%;
-  max-width:500px;
-  margin-top:20px;
+  max-width:600px;
   border-radius:20px;
-  box-shadow:0 0 30px #ff4d6d;
+  box-shadow:0 0 40px #ff4d6d;
 }
 
 /* القلوب */
@@ -125,14 +136,15 @@ video{
   <img src="photo1.jpg">
   <img src="photo2.jpg">
 
-  <!-- فيديو (اختياري) -->
-  <!-- لو مش عندك فيديو امسحي الجزء ده -->
-  <video controls>
-    <source src="love.mp4" type="video/mp4">
-  </video>
+  <!-- الفيديو -->
+  <div class="video-container" id="videoSection">
+    <video id="loveVideo" controls playsinline>
+      <source src="love.mp4" type="video/mp4">
+    </video>
+  </div>
 
   <!-- الأغنية -->
-  <audio id="music" loop controls>
+  <audio id="music" loop>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 </div>
@@ -150,7 +162,17 @@ function typeWriter(){
     document.getElementById("typedText").innerHTML += message.charAt(i);
     i++;
     setTimeout(typeWriter, 50);
+  }else{
+    showVideo(); // بعد ما الكتابة تخلص
   }
+}
+
+function showVideo(){
+  const videoSection = document.getElementById("videoSection");
+  const video = document.getElementById("loveVideo");
+
+  videoSection.classList.add("show");
+  video.play().catch(()=>{});
 }
 
 function checkPassword(){
